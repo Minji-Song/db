@@ -44,16 +44,15 @@
 <link rel="stylesheet" type="text/css"
 	href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
 
-<script type="text/javascript" language="javascript"
-	src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script type="text/javascript" language="javascript"
-	src="js/DataTables/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script type="text/javascript" src="js/DataTables/jquery.dataTables.min.js"></script>
 <script>
 	var $hs = jQuery.noConflict();
 </script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 
 <script type="text/javascript" class="init">
-	$hs(document).ready(
+	$(document).ready(
 			function() {
 				var g = "https://api.rss2json.com/v1/api.json?rss_url=";
 				var donga = "https://it.donga.com/feeds/rss/news/";
@@ -67,6 +66,7 @@
 						$("#example tbody").empty();
 						$.each(data.items, function(i, d) {
 							var pubDate = d["pubDate"];
+							var date = moment(pubDate).format('YYYY-MM-DD HH:mm:ss');
 							var category = d["categories"];
 							var thumbnail = d["thumbnail"];
 							var title = d["title"];
@@ -74,7 +74,7 @@
 							var link = d["link"];
 							
 							$("#example tbody").append(
-									'<tr><td>' +pubDate + '</td><td><img height="50" width="70" alt="" src="'+thumbnail+'"></td><td><a href="'+link+'" target="_blank">'
+									'<tr><td>' +date + '</td><td><img height="50" width="70" alt="" src="'+thumbnail+'"></td><td><a href="'+link+'" target="_blank">'
 											+ title + '</a></td><td>'
 											+ author + '</td></tr>');
 						});
